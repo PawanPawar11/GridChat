@@ -16,14 +16,15 @@ await connectDB();
 await connectRedis();
 await connectRabbitMQ();
 
+app.use(express.json());
 app.use("/api/v1", userRouter);
 
 app.get("/", (_, res) => {
-  res.send("Hello, World!");
+  res.send("User service is running!");
 });
 
 app.get("/health", (_, res) => {
-  res.send("Server is healthy!");
+  res.status(200).send("OK");
 });
 
 app.listen(PORT, () => {

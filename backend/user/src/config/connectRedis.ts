@@ -1,6 +1,6 @@
-import { createClient } from "redis";
+import { createClient, type RedisClientType } from "redis";
 
-let redisClient;
+let redisClient: RedisClientType;
 
 const connectRedis = async () => {
   const REDIS_URL = process.env.REDIS_URL;
