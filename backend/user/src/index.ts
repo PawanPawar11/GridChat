@@ -1,9 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import connectDB from "./config/connectDB.js";
-import connectRedis from "./config/connectRedis.js";
-import connectRabbitMQ from "./config/connectRabbitMQ.js";
+import connectDB from "./configs/connectDB.js";
+import connectRedis from "./configs/connectRedis.js";
+import connectRabbitMQ from "./configs/connectRabbitMQ.js";
 
 import userRouter from "./route/user.route.js";
 
