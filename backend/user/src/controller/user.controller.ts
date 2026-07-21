@@ -7,9 +7,9 @@ export const requestOtp = async (req: Request, res: Response) => {
     const { email } = req.body;
 
     const rateLimitKey = `otp:ratelimit:${email}`;
-    const rateLimit = await redisClient.get(rateLimitKey);
+    const isRateLimited = await redisClient.get(rateLimitKey);
 
-    if (rateLimit) {
+    if (isRateLimited) {
       res
         .status(429)
         .json({ message: "Too many requests, please try again later" });
@@ -22,15 +22,15 @@ export const requestOtp = async (req: Request, res: Response) => {
     await redisClient.set(otpKey, otp, { EX: 300 });
     await redisClient.set(rateLimitKey, "true", { EX: 60 });
 
-    const message = {
+    const emailPayload = {
       to: email,
       subject: "Your OTP Code",
       text: `Your OTP code is: ${otp}. It will expire in 5 minutes.`,
     };
 
-    const OTP_QUEUE = "send_otp";
+    const SEND_OTP_QUEUE = "send_otp_email";
 
-    await publishToQueue(OTP_QUEUE, message);
+    await publishToQueue(SEND_OTP_QUEUE, emailPayload);
 
     res.status(200).json({ message: "OTP sent successfully" });
   } catch (error) {

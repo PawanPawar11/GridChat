@@ -16,7 +16,7 @@ const sendOtpConsumer = async () => {
     });
 
     const channel = await connection.createChannel();
-    const queueName = "send_otp";
+    const queueName = "send_otp_email";
 
     await channel.assertQueue(queueName, { durable: true });
 
@@ -24,13 +24,13 @@ const sendOtpConsumer = async () => {
 
     channel.consume(
       queueName,
-      async (msg) => {
-        if (msg) {
-          const messageContent = msg.content.toString();
-          console.log(`📩 Received message: ${messageContent}`);
+      async (message) => {
+        if (message) {
+          const payload = message.content.toString();
+          console.log(`📩 Received message: ${payload}`);
 
           // Parse the message content to get the email and OTP
-          const { to, subject, text } = JSON.parse(messageContent);
+          const { to, subject, text } = JSON.parse(payload);
 
           // Send the OTP email using nodemailer
           const transporter = nodemailer.createTransport({
@@ -51,7 +51,7 @@ const sendOtpConsumer = async () => {
               text: text,
             });
             console.log(`✅ OTP email sent to: ${to}`);
-            channel.ack(msg); // Acknowledge the message after successful processing
+            channel.ack(message); // Acknowledge the message after successful processing
           } catch (error) {
             console.error("❌ Failed to send OTP email:", error);
           }

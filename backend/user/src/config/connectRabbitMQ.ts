@@ -31,12 +31,12 @@ export const getChannel = () => {
   return channel;
 };
 
-export const publishToQueue = async (queue: string, message: unknown) => {
+export const publishToQueue = async (queueName: string, payload: unknown) => {
   const channel = getChannel();
 
-  await channel.assertQueue(queue, { durable: true });
+  await channel.assertQueue(queueName, { durable: true });
 
-  channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)), {
+  channel.sendToQueue(queueName, Buffer.from(JSON.stringify(payload)), {
     persistent: true,
   });
 };
