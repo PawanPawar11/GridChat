@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
     "email": "notimewaste987@gmail.com",
-    "otp": "395527"
+    "otp": "109351"
 }
 
 ###
@@ -22,5 +22,30 @@ Content-Type: application/json
 # Get My Profile
 GET http://localhost:5000/api/v1/my-profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVRJ0.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImlhdCI6MTc4NDY0OTIzNSwiZXhwIjoxNzg1MjU0MDM1fQ.Zs2pMZE8Sim6FkHMXkJqbCaMeTynrTSR7l4Cm21RNHI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImlhdCI6MTc4NDcwNDY1NSwiZXhwIjoxNzg1MzA5NDU1fQ.NVELAxEu1we4M2xVVGVtuBk0zJEohSd9p1eutiJG45g
+
+###
+
+# Get All Users
+GET http://localhost:5000/api/v1/user/all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImlhdCI6MTc4NDcwNDY1NSwiZXhwIjoxNzg1MzA5NDU1fQ.NVELAxEu1we4M2xVVGVtuBk0zJEohSd9p1eutiJG45g
+
+###
+
+# Get User By ID
+GET http://localhost:5000/api/v1/user/6a5f787410a8e7a625214154
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImlhdCI6MTc4NDcwNDY1NSwiZXhwIjoxNzg1MzA5NDU1fQ.NVELAxEu1we4M2xVVGVtuBk0zJEohSd9p1eutiJG45g
+
+###
+
+# Update Name
+PUT http://localhost:5000/api/v1/user/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImlhdCI6MTc4NDcwNDY1NSwiZXhwIjoxNzg1MzA5NDU1fQ.NVELAxEu1we4M2xVVGVtuBk0zJEohSd9p1eutiJG45g
+
+{
+    "name": "Arjun Sengupta"
+}
 

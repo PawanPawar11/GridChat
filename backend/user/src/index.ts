@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import connectDB from "./configs/connectDB.js";
 import connectRedis from "./configs/connectRedis.js";
@@ -11,6 +12,7 @@ import { errorHandler } from "./middleware/error.middleware.js";
 dotenv.config({ quiet: true });
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 await connectDB();
