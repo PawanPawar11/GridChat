@@ -1,15 +1,13 @@
 import express from "express";
-import {
-  getMyProfile,
-  requestOtp,
-  verifyOtp,
-} from "../controller/user.controller.js";
+import { getMyProfile } from "../controller/user.controller.js";
 import { isAuthenticated } from "../middleware/auth.middleware.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import authRouter from "./auth.route.js";
 
 const userRouter = express.Router();
 
-userRouter.post("/request-otp", requestOtp);
-userRouter.post("/verify-otp", verifyOtp);
-userRouter.get("/my-profile", isAuthenticated, getMyProfile);
+userRouter.use(authRouter);
+
+userRouter.get("/my-profile", isAuthenticated, asyncHandler(getMyProfile));
 
 export default userRouter;

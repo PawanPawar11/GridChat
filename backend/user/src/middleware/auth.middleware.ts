@@ -1,7 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import { User, type IUser } from "../model/User.js";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
+import { User, type IUser } from "../model/User.js";
+import { UnauthorizedError } from "../errors/customErrors.js";
 
 dotenv.config();
 
@@ -11,52 +12,44 @@ export interface AuthenticatedRequest extends Request {
 
 export const isAuthenticated = async (
   req: AuthenticatedRequest,
-  res: Response,
+  _res: Response,
   next: NextFunction,
-) => {
+): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      res.status(401).json({
-        message: "Unauthorized: Please provide a valid authorization token",
-      });
-      return;
+      throw new UnauthorizedError(
+        "Unauthorized: Please provide a valid authorization token",
+      );
     }
 
     const token = authHeader.split(" ")[1];
 
     if (!token) {
-      res
-        .status(401)
-        .json({ message: "Unauthorized: Authorization token missing" });
-      return;
+      throw new UnauthorizedError("Unauthorized: Authorization token missing");
     }
 
-    const decodedToken = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string,
-    ) as JwtPayload;
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      throw new Error("JWT_SECRET is not defined in environment variables");
+    }
+
+    const decodedToken = jwt.verify(token, jwtSecret) as JwtPayload;
 
     if (!decodedToken || !decodedToken.id) {
-      res.status(401).json({ message: "Unauthorized: Invalid token" });
-      return;
+      throw new UnauthorizedError("Unauthorized: Invalid token");
     }
 
     const user = await User.findById(decodedToken.id);
 
     if (!user) {
-      return res.status(401).json({
-        message: "User not found",
-      });
+      throw new UnauthorizedError("User not found");
     }
 
     req.user = user;
-
     next();
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-    return;
+    next(error);
   }
 };

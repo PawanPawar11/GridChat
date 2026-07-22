@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
     "email": "notimewaste987@gmail.com",
-    "otp": "650051"
+    "otp": "395527"
 }
 
 ###
@@ -22,5 +22,5 @@ Content-Type: application/json
 # Get My Profile
 GET http://localhost:5000/api/v1/my-profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ0.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImVtYWlsIjoibm90aW1ld2FzdGU5ODdAZ21haWwuY29tIiwiaWF0IjoxNzg0NjQxNjUyLCJleHAiOjE3ODUyNDY0NTJ9.WXwVS-i8xspunulXFI9ZDRlfOBOVa80CSc4DfqE3FOU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVRJ0.eyJpZCI6IjZhNWY3ODc0MTBhOGU3YTYyNTIxNDE1NCIsImlhdCI6MTc4NDY0OTIzNSwiZXhwIjoxNzg1MjU0MDM1fQ.Zs2pMZE8Sim6FkHMXkJqbCaMeTynrTSR7l4Cm21RNHI
 

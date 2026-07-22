@@ -6,6 +6,7 @@ import connectRedis from "./configs/connectRedis.js";
 import connectRabbitMQ from "./configs/connectRabbitMQ.js";
 
 import userRouter from "./route/user.route.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 
 dotenv.config({ quiet: true });
 
@@ -26,6 +27,8 @@ app.get("/", (_, res) => {
 app.get("/health", (_, res) => {
   res.status(200).send("OK");
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
